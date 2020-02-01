@@ -54,17 +54,17 @@ let findById = (request, response) =>{
 		var result = {};
 
 		let id = request.params.id;
-	    let employee = employees[id - 1];
+	    let employee = employees.filter(employee => employee.id == id)[0];
 	    result = response.json({
+	        empId: employee.empId,
 	        firstName: employee.firstName,
 	        lastName: employee.lastName,
-	        empId: employee.empId,
 	        title: employee.title,
 	        email: employee.email,
 	        phone: employee.phone,
 	        mobilePhone: employee.mobilePhone,
 	        picture: employee.picture,
-	        manager: employees[employee.managerId - 1],
+	        manager: employees.filter(item => employee.managerId == item.id)[0],
 	        reports: employees.filter(item => item.managerId == id)
 	    });
 		return result;
