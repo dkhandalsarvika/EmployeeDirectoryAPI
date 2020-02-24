@@ -96,11 +96,50 @@ app.get('/',(request, response) =>{
 	});
 });
 
+app.get('/empdetails/:id',(request, response) =>{
+	// response.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+	response.set('content-type', 'text/html; charset=utf-8');
+
+		getEmployees().then(employees => {
+
+		var empdetail = {};
+
+		let id = request.params.id;
+	    let employee = employees.filter(employee => employee.id == id)[0];
+	    // empdetail = response.json({
+	    //     empId: employee.empId,
+	    //     firstName: employee.firstName,
+	    //     lastName: employee.lastName,
+	    //     title: employee.title,
+	    //     email: employee.email,
+	    //     phone: employee.phone,
+	    //     mobilePhone: employee.mobilePhone,
+	    //     picture: employee.picture,
+	    //     manager: employees.filter(item => employee.managerId == item.id)[0],
+	    //     reports: employees.filter(item => item.managerId == id)
+	    // });
+	    response.render('empdetails',{employee});
+		return 1;
+	}).catch(error => {
+	    console.error(error);
+	    res.error(500);
+	});
+	// getEmployees().then(employees => {
+	// 	response.render('empdetails',{employees});
+	// 	return 1;
+	// }).catch(error => {
+	//     console.error(error);
+	//     res.error(500);
+	// });
+});
+
 // SED API Webservices
 app.get('/sarvikaemployees',findAll); //findAll and findByName togather
 
 app.get('/sarvikaemployees/:id',findById);
 
-
+let listener = app.listen(process.env.PORT, () => {
+  console.log('Your app is listening on port ' + listener.address().port);
+});
 
 exports.app = functions.https.onRequest(app);
