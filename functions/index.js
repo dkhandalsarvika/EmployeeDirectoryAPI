@@ -102,10 +102,10 @@ app.get('/empdetails/:id',(request, response) =>{
 
 		getEmployees().then(employees => {
 
-		var empdetail = {};
+		var empdetail ;
 
 		let id = request.params.id;
-	    let employee = employees.filter(employee => employee.id == id)[0];
+	    empdetail = employees.filter(employee => employee.id == id)[0];
 	    // empdetail = response.json({
 	    //     empId: employee.empId,
 	    //     firstName: employee.firstName,
@@ -118,7 +118,9 @@ app.get('/empdetails/:id',(request, response) =>{
 	    //     manager: employees.filter(item => employee.managerId == item.id)[0],
 	    //     reports: employees.filter(item => item.managerId == id)
 	    // });
-	    response.render('empdetails',{employee});
+	    // console.log(empdetail);
+
+	    response.render('empdetails',{empdetail});
 		return 1;
 	}).catch(error => {
 	    console.error(error);

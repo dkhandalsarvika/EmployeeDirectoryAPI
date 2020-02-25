@@ -4,58 +4,185 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link id="favicon" rel="icon" href="https://www.sarvika.com/wp-content/uploads/2019/02/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <title>Employee Details</title>
-      <style>
-        h1{
-          text-align: center;
-        }
-         table, th, td {
-            border: 1px solid black;
-            padding: 3px;
-         }
-        img{
-          width: 60px;
-          height: 60px;
+    <style>
+      html, body {
+      min-height: 100%;
+      }
+      body, div, form, input, select, p { 
+      padding: 0;
+      margin: 0;
+      outline: none;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 16px;
+      color: #eee;
+      }
+      body {
+      background: url("/uploads/media/default/0001/01/b5edc1bad4dc8c20291c8394527cb2c5b43ee13c.jpeg") no-repeat center;
+      background-size: cover;
+      }
+      h1, h2 {
+      text-transform: uppercase;
+      font-weight: 400;
+      }
+      h2 {
+      margin: 0 0 0 8px;
+      }
+      .main-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.5); 
+      }
+      .left-part, form {
+      padding: 25px;
+      }
+      .left-part {
+      text-align: center;
+      }
+      .img-round{
+          width: 150px;
+          height: 150px;
           border-radius: 50%;
-        }
-      </style>
+          margin-right: 50px;
+      }
+      .fa-graduation-cap {
+      font-size: 72px;
+      }
+      form {
+      background: rgba(0, 0, 0, 0.7); 
+      }
+      .title {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      }
+      .info {
+      display: flex;
+      flex-direction: column;
+      }
+      label {
+      color: #26a9e0;
+      }
+      input, select {
+      padding: 5px;
+      margin-bottom: 30px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid #eee;
+      }
+      input::placeholder {
+      color: #eee;
+      }
+      option:focus {
+      border: none;
+      }
+      option {
+      background: black; 
+      border: none;
+      }
+      .checkbox input {
+      margin: 0 10px 0 0;
+      vertical-align: middle;
+      }
+      .checkbox a {
+      color: #26a9e0;
+      }
+      .checkbox a:hover {
+      color: #85d6de;
+      }
+      .btn-item, button {
+      padding: 10px 5px;
+      margin-top: 20px;
+      border-radius: 5px; 
+      border: none;
+      background: #26a9e0; 
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 400;
+      color: #fff;
+      }
+      .btn-item {
+      display: inline-block;
+      margin: 20px 5px 0;
+      }
+      button {
+      width: 100%;
+      }
+      button:hover, .btn-item:hover {
+      background: #85d6de;
+      }
+      @media (min-width: 568px) {
+      html, body {
+      height: 100%;
+      }
+      .main-block {
+      flex-direction: row;
+      height: calc(100% - 50px);
+      }
+      .left-part, form {
+      flex: 1;
+      height: auto;
+      }
+      }
+    </style>
   </head>
-  <body>
-		<h1>Employee Details</h1>
-    <table align="center">
-        <tr style="background-color: #A3A3A3;">
-            <th>ID</th>
-            <th>Image</th>
-            <th>EmpId</th>
-            <th>Name</th>
-            <th>Designation</th>
-            <th>E-Mail</th>
-            <th>Mobile</th>
-            <th>E-Mobile</th>
-         </tr>
-          <tr>
-            <td>{{employee.empId}}</td>
-            <td><img src="{{employee.picture}}" alt="{{employee.firstName}}" ></td>
-            <td>{{employee.empId}}</td>
-            <td>{{employee.firstName}} {{employee.lastName}}</td>
-            <td>{{employee.title}}</td>
-            <td>{{employee.email}}</td>
-            <td>{{employee.phone}}</td>
-            <td>{{employee.mobilePhone}}</td>
-          </tr>
-          
-          <!-- {{#each employee.manager}} -->
-<!--             <tr>
-              <td>{{employee.empId}}</td>
-              <td><img src="{{employee.picture}}" alt="{{employee.firstName}}" ></td>
-              <td>{{employee.empId}}</td>
-              <td>{{employee.firstName}} {{employee.lastName}}</td>
-              <td>{{employee.title}}</td>
-              <td>{{employee.email}}</td>
-              <td>{{employee.phone}}</td>
-              <td>{{employee.mobilePhone}}</td>
-            </tr> -->
-          <!-- {{/each}} -->
-    </table>
+    <body>
+    <div class="main-block">
+<!--       <div class="left-part">
+        <i class="fas fa-graduation-cap"></i>
+        <h1>Register to our courses</h1>
+        <p>W3docs provides free learning materials for programming languages like HTML, CSS, Java Script, PHP etc.</p>
+        <div class="btn-group">
+          <a class="btn-item" href="https://www.w3docs.com/learn-html.html">Learn HTML</a>
+          <a class="btn-item" href="https://www.w3docs.com/quiz/#">Select Quiz</a>
+        </div>
+        <img class="img-round" src="{{empdetail.picture}}" alt="{{empdetail.firstName}}" >
+      </div> -->
+      <form action="/">
+        <div class="title">
+          <img class="img-round" src="{{empdetail.picture}}" alt="{{empdetail.firstName}}" >
+          <i class="fas fa-pencil-alt"></i> 
+          <h2>Employee Details</h2>
+        </div>
+        <div class="info">
+          <label for="empId">Employee ID</label>
+          <input type="text" name="empId" placeholder="Employee ID" value="{{empdetail.empId}}" readonly>
+          <label for="firstName">First Name</label>
+          <input class="fname" type="text" name="firstName" placeholder="First Name" value="{{empdetail.firstName}}">
+          <label for="lastName">Last Name</label>
+          <input class="lname" type="text" name="lastName" placeholder="Last Name" value="{{empdetail.lastName}}">
+          <label for="Email">Email</label>
+          <input type="text" name="email" placeholder="Email" value="{{empdetail.email}}">
+          <label for="phone">Phone number</label>
+          <input type="text" name="phone" placeholder="Phone number" value="{{empdetail.phone}}">
+          <label for="mobilePhone">E-Phone number</label>
+          <input type="text" name="mobilePhone" placeholder="E-Phone number" value="{{empdetail.mobilePhone}}">
+          <label for="title">Designation</label>
+          <input type="text" name="title" placeholder="Designation" value="{{empdetail.title}}">
+<!--           <select>
+            <option value="course-type" selected>Course type*</option>
+            <option value="short-courses">Short courses</option>
+            <option value="featured-courses">Featured courses</option>
+            <option value="undergraduate">Undergraduate</option>
+            <option value="diploma">Diploma</option>
+            <option value="certificate">Certificate</option>
+            <option value="masters-degree">Masters degree</option>
+            <option value="postgraduate">Postgraduate</option>
+          </select> -->
+        </div>
+<!--         <div class="checkbox">
+          <input type="checkbox" name="checkbox"><span>I agree to the <a href="https://www.w3docs.com/privacy-policy">Privacy Poalicy for W3Docs.</a></span>
+        </div> -->
+        <button type="submit" href="/">Submit</button>
+      </form>
+    </div>
   </body>
+
+
 </html>
