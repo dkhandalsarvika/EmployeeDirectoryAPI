@@ -26,6 +26,33 @@ function getEmployees(){
 	// 	 });
 }
 
+// update employee values from database
+function updateEmployees(request){
+
+	var ref = firebase.database().ref('emplyees/' + request.body.id);
+	ref.set({
+	    empId:request.body.empId,
+		firstName:request.body.firstName,
+		lastName:request.body.lastName,
+		title:request.body.title,
+		email:request.body.email,
+		phone:request.body.phone,
+		mobilePhone:request.body.mobilePhone
+	  }, function(error) {
+	    if (error) {
+	      // The write failed...
+	      	console.log("Updating failed");	
+			
+	    } else {
+	      // Data saved successfully!
+	      	console.log("Update employee details successfully");	
+			
+	    }
+	  });
+
+	return ref.once('value').then(snap => snap.val());
+}
+
  // to findAll and findByName employees api
  let findAll = (request, response) =>{
 	response.set('Cache-Control', 'public, max-age=300, s-maxage=600');
@@ -67,6 +94,28 @@ let findById = (request, response) =>{
 	        manager: employees.filter(item => employee.managerId == item.id)[0],
 	        reports: employees.filter(item => item.managerId == id)
 	    });
+		return result;
+	}).catch(error => {
+	    console.error(error);
+	    res.error(500);
+	});
+};
+
+// to updateById employee api
+let updateById = (request, response) =>{
+	// response.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+	updateEmployees(request).then(employee => {
+		var result = {};
+	    result = response.json({
+	        empId: employee.empId,
+	        firstName: employee.firstName,
+	        lastName: employee.lastName,
+	        title: employee.title,
+	        email: employee.email,
+	        phone: employee.phone,
+	        mobilePhone: employee.mobilePhone
+	    });
+	    // console.log(result);
 		return result;
 	}).catch(error => {
 	    console.error(error);
@@ -136,9 +185,11 @@ app.get('/empdetails/:id',(request, response) =>{
 });
 
 // SED API Webservices
-app.get('/sarvikaemployees',findAll); //findAll and findByName togather
+app.get('/sarvikaemployees',findAll); //findAll and findByName together
 
 app.get('/sarvikaemployees/:id',findById);
+
+app.put('/empdetailsupdate',updateById);
 
 let listener = app.listen(process.env.PORT, () => {
   console.log('Your app is listening on port ' + listener.address().port);
