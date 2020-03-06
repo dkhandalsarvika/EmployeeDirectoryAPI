@@ -4,6 +4,8 @@ const express = require('express');
 const engines = require('consolidate');
 const cors = require('cors');
 
+const databaseName = 'employees';
+
 const serviceAccount = require("./serviceAccountKey.json");
 
 const firebaseApp = firebase.initializeApp({
@@ -18,7 +20,7 @@ const firebaseApp = firebase.initializeApp({
 
 // fetch all employee values from database
 function getEmployees(){
-	const ref = firebaseApp.database().ref('employees');
+	const ref = firebaseApp.database().ref(databaseName);
 	console.log("Employees Database URL: "+ ref);
 	return ref.once('value').then(snap => snap.val());
 	// return ref.once('value').then(function (snap) {
@@ -28,9 +30,9 @@ function getEmployees(){
 
 // update employee values from database
 function updateEmployees(request){
-
-	var ref = firebase.database().ref('emplyees/' + request.body.id);
-	ref.set({
+	var ref = firebaseApp.database().ref(databaseName + '/' + (request.body.id - 1));
+	console.log("Employees Database update URL: " + ref);
+	ref.update({
 	    empId:request.body.empId,
 		firstName:request.body.firstName,
 		lastName:request.body.lastName,
@@ -38,15 +40,13 @@ function updateEmployees(request){
 		email:request.body.email,
 		phone:request.body.phone,
 		mobilePhone:request.body.mobilePhone
-	  }, function(error) {
+	  }, error => {
 	    if (error) {
 	      // The write failed...
 	      	console.log("Updating failed");	
-			
 	    } else {
 	      // Data saved successfully!
-	      	console.log("Update employee details successfully");	
-			
+	      	console.log("Update employee details successfully for " + (request.body.id - 1) + "-" + request.body.firstName);	
 	    }
 	  });
 
