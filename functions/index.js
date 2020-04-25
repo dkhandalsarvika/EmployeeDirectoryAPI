@@ -39,7 +39,12 @@ function updateEmployees(request){
 		title:request.body.title,
 		email:request.body.email,
 		phone:request.body.phone,
-		mobilePhone:request.body.mobilePhone
+		mobilePhone:request.body.mobilePhone,
+		picture: request.body.picture,
+		dob: request.body.dob,
+		doj: request.body.doj,
+		bloodGrp: request.body.bloodGrp,
+		passportNo: request.body.passportNo
 	  }, error => {
 	    if (error) {
 	      // The write failed...
@@ -60,10 +65,14 @@ function updateEmployees(request){
 
 		var result = {};
 	    let name = request.query.name;
+	    let email = request.query.email;
 	    if (name) {
 	        let result = employees.filter(employee => (employee.firstName +  ' ' + employee.lastName).toUpperCase().indexOf(name.toUpperCase()) > -1);
 	        result = response.json(result);
-	    } else {
+	    }else if (email) {
+	        let result = employees.filter(employee => employee.email == email)[0];
+	        result = response.json(result);
+	    }else {
 	        result = response.json(employees);
 	    }
 	    return result;
@@ -75,7 +84,7 @@ function updateEmployees(request){
 
 // to findById employee api
 let findById = (request, response) =>{
-	response.set('Cache-Control', 'public, max-age=300, s-maxage=600');
+	response.set('Cache-Control', 'no-store');
 	getEmployees().then(employees => {
 
 		var result = {};
@@ -83,6 +92,7 @@ let findById = (request, response) =>{
 		let id = request.params.id;
 	    let employee = employees.filter(employee => employee.id == id)[0];
 	    result = response.json({
+	    	id: employee.id,
 	        empId: employee.empId,
 	        firstName: employee.firstName,
 	        lastName: employee.lastName,
@@ -91,6 +101,12 @@ let findById = (request, response) =>{
 	        phone: employee.phone,
 	        mobilePhone: employee.mobilePhone,
 	        picture: employee.picture,
+	        dob: employee.dob,
+	        doj: employee.doj,
+	        bloodGrp: employee.bloodGrp,
+	        passportNo: employee.passportNo,
+	        isActive: employee.isActive,
+	        isAdmin: employee.isAdmin,
 	        manager: employees.filter(item => employee.managerId == item.id)[0],
 	        reports: employees.filter(item => item.managerId == id)
 	    });
@@ -113,7 +129,14 @@ let updateById = (request, response) =>{
 	        title: employee.title,
 	        email: employee.email,
 	        phone: employee.phone,
-	        mobilePhone: employee.mobilePhone
+	        mobilePhone: employee.mobilePhone,
+	        picture: employee.picture,
+	        dob: employee.dob,
+	        doj: employee.doj,
+	        bloodGrp: employee.bloodGrp,
+	        passportNo: employee.passportNo,
+	        isActive: employee.isActive,
+	        isAdmin: employee.isAdmin	        
 	    });
 	    // console.log(result);
 		return result;
@@ -185,7 +208,7 @@ app.get('/empdetails/:id',(request, response) =>{
 });
 
 // SED API Webservices
-app.get('/sarvikaemployees',findAll); //findAll and findByName together
+app.get('/sarvikaemployees',findAll); //findAll and findByName , findByEmail all together
 
 app.get('/sarvikaemployees/:id',findById);
 
