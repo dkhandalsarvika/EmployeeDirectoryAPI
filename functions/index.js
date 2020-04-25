@@ -22,7 +22,16 @@ const firebaseApp = firebase.initializeApp({
 function getEmployees(){
 	const ref = firebaseApp.database().ref(databaseName);
 	console.log("Employees Database URL: "+ ref);
-	return ref.once('value').then(snap => snap.val());
+	// return ref.orderByChild('isActive').equalTo(true).once('value', function(snapshot) {
+	// 			// var totalRecords =  snapshot.numChildren();
+ //    // 			console.log("Total Records : " + totalRecords);
+	// 		    // console.log(snapshot.val());
+	// 		    // snapshot.forEach(function(data) {
+	// 		    //     console.log(data.key);
+	// 		    // });
+	// 		});
+	return ref.orderByChild('isActive').equalTo(true).once('value').then(snap => snap.val());
+	// return ref.once('value').then(snap => snap.val());
 	// return ref.once('value').then(function (snap) {
 	// 	 console.log('snap.val()', snap.val());
 	// 	 });
