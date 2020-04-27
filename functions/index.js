@@ -53,7 +53,9 @@ function updateEmployees(request){
 		dob: request.body.dob,
 		doj: request.body.doj,
 		bloodGrp: request.body.bloodGrp,
-		passportNo: request.body.passportNo
+		passportNo: request.body.passportNo,
+		passportExpiry: request.body.passportExpiry,
+		pan: request.body.pan
 	  }, error => {
 	    if (error) {
 	      // The write failed...
@@ -114,6 +116,8 @@ let findById = (request, response) =>{
 	        doj: employee.doj,
 	        bloodGrp: employee.bloodGrp,
 	        passportNo: employee.passportNo,
+			passportExpiry: employee.passportExpiry,
+			pan: employee.pan,
 	        isActive: employee.isActive,
 	        isAdmin: employee.isAdmin,
 	        manager: employees.filter(item => employee.managerId == item.id)[0],
@@ -144,6 +148,8 @@ let updateById = (request, response) =>{
 	        doj: employee.doj,
 	        bloodGrp: employee.bloodGrp,
 	        passportNo: employee.passportNo,
+			passportExpiry: employee.passportExpiry,
+			pan: employee.pan,	        
 	        isActive: employee.isActive,
 	        isAdmin: employee.isAdmin	        
 	    });
