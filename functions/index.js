@@ -6,6 +6,9 @@ const cors = require('cors');
 
 const databaseName = 'employees';
 
+const adminUserName = 'admin';
+const adminPassword = 'admin#123';
+
 const serviceAccount = require("./serviceAccountKey.json");
 
 const firebaseApp = firebase.initializeApp({
@@ -89,7 +92,7 @@ function updateEmployees(request){
 	    return result;
 	}).catch(error => {
 	    console.error(error);
-	    res.error(500);
+	    response.error(500);
 	});
 };
 
@@ -126,7 +129,7 @@ let findById = (request, response) =>{
 		return result;
 	}).catch(error => {
 	    console.error(error);
-	    res.error(500);
+	    response.error(500);
 	});
 };
 
@@ -136,6 +139,7 @@ let updateById = (request, response) =>{
 	updateEmployees(request).then(employee => {
 		var result = {};
 	    result = response.json({
+	    	id: employee.id,
 	        empId: employee.empId,
 	        firstName: employee.firstName,
 	        lastName: employee.lastName,
@@ -157,7 +161,7 @@ let updateById = (request, response) =>{
 		return result;
 	}).catch(error => {
 	    console.error(error);
-	    res.error(500);
+	    response.error(500);
 	});
 };
 
@@ -173,13 +177,43 @@ app.set('view engine','hbs');
 
 
 app.get('/',(request, response) =>{
+	response.render('index', { title: 'SED Login' });
+});
+
+
+app.post('/login',(request, response) =>{
+
+	var username = request.body.username;
+	var password = request.body.password;
+	var message = "";
+
+	if (username && password) {
+
+			if (username == adminUserName&& password == adminPassword) {
+				response.redirect(307,'/emplisting');
+			} else {
+				message = 'Incorrect Username and/or Password!';
+				response.render('index',{message});
+			}			
+	}else {
+		message = 'Please enter Username and Password!';
+		response.render('index',{message});
+	}
+});
+
+app.get('/logout',(request, response) =>{
+	response.redirect(307,'/');
+});
+
+app.post('/emplisting',(request, response) =>{
 	response.set('Cache-Control', 'public, max-age=300, s-maxage=600');
 	getEmployees().then(employees => {
-		response.render('index',{employees});
+		response.render('emplisting',{employees});
 		return 1;
 	}).catch(error => {
 	    console.error(error);
-	    res.error(500);
+	    // response.error(500);
+	    response.redirect(307,'/');
 	});
 });
 
@@ -211,7 +245,7 @@ app.get('/empdetails/:id',(request, response) =>{
 		return 1;
 	}).catch(error => {
 	    console.error(error);
-	    res.error(500);
+	    response.error(500);
 	});
 	// getEmployees().then(employees => {
 	// 	response.render('empdetails',{employees});

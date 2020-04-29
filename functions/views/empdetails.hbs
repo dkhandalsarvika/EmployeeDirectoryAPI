@@ -20,8 +20,10 @@
       color: #eee;
       }
       body {
-      background: url("/uploads/media/default/0001/01/b5edc1bad4dc8c20291c8394527cb2c5b43ee13c.jpeg") no-repeat center;
+      background: rgba(0, 0, 0, 0.5);
       background-size: cover;
+/*      background: url("https://www.w3docs.com/uploads/media/default/0001/01/b5edc1bad4dc8c20291c8394527cb2c5b43ee13c.jpeg") no-repeat center;
+      background-size: cover;*/
       }
       h1, h2 {
       text-transform: uppercase;
@@ -66,6 +68,15 @@
       display: flex;
       flex-direction: column;
       }
+      .info-row {
+      display: flex;
+      flex-direction: row;
+      }
+      .info-column {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      }      
       label {
       color: #26a9e0;
       }
@@ -151,20 +162,99 @@
           <h2>Employee Details</h2>
         </div>
         <div class="info">
-          <label for="empId">Employee ID</label>
-          <input type="text" name="empId" placeholder="Employee ID" value="{{empdetail.empId}}" readonly>
-          <label for="firstName">First Name</label>
-          <input class="fname" type="text" name="firstName" placeholder="First Name" value="{{empdetail.firstName}}">
-          <label for="lastName">Last Name</label>
-          <input class="lname" type="text" name="lastName" placeholder="Last Name" value="{{empdetail.lastName}}">
-          <label for="Email">Email</label>
-          <input type="text" name="email" placeholder="Email" value="{{empdetail.email}}">
-          <label for="phone">Phone number</label>
-          <input type="text" name="phone" placeholder="Phone number" value="{{empdetail.phone}}">
-          <label for="mobilePhone">E-Phone number</label>
-          <input type="text" name="mobilePhone" placeholder="E-Phone number" value="{{empdetail.mobilePhone}}">
-          <label for="title">Designation</label>
-          <input type="text" name="title" placeholder="Designation" value="{{empdetail.title}}">
+          <div class="info-row">
+            <div class="info-column">
+              <label for="empId">Employee ID</label>
+              <input type="text" name="empId" placeholder="Employee ID" value="{{empdetail.empId}}" readonly>
+            </div>
+            <div class="info-column">
+              <label for="title">Designation</label>
+              <input type="text" name="title" placeholder="Designation" value="{{empdetail.title}}">
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-column">
+              <label for="Email">Email</label>
+              <input type="text" name="email" placeholder="Email" value="{{empdetail.email}}">
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-column">
+              <label for="firstName">First Name</label>
+              <input class="fname" type="text" name="firstName" placeholder="First Name" value="{{empdetail.firstName}}"> 
+            </div>
+            <div class="info-column">
+              <label for="lastName">Last Name</label>
+              <input class="lname" type="text" name="lastName" placeholder="Last Name" value="{{empdetail.lastName}}">
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-column">
+              <label for="phone">Phone number</label>
+              <input type="text" name="phone" placeholder="Phone number" value="{{empdetail.phone}}">
+            </div>
+            <div class="info-column">
+              <label for="mobilePhone">E-Phone number</label>
+              <input type="text" name="mobilePhone" placeholder="E-Phone number" value="{{empdetail.mobilePhone}}">
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-column">
+              <label for="bloodGrp">Blood Group</label>
+              <input type="text" name="bloodGrp" placeholder="Blood Group" value="{{empdetail.bloodGrp}}">
+            </div>
+            <div class="info-column">
+              <label for="pan">PAN Number</label>
+              <input type="text" name="pan" placeholder="PAN Number" value="{{empdetail.pan}}">
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-column">
+              <label for="passportNo">Passport Number</label>
+              <input type="text" name="passportNo" placeholder="Passport Number" value="{{empdetail.passportNo}}">
+            </div>
+            <div class="info-column">
+              <label for="passportExpiry">Passport Expiry Date</label>
+              <input type="text" name="passportExpiry" placeholder="Passport Expiry Date" value="{{empdetail.passportExpiry}}">
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-column">
+              <label for="passportNo">Date of Birth</label>
+              <input type="text" name="dob" placeholder="Date of Birth" value="{{empdetail.dob}}">
+            </div>
+            <div class="info-column">
+              <label for="passportExpiry">Date of Joining</label>
+              <input type="text" name="doj" placeholder="Date of Joining" value="{{empdetail.doj}}">
+            </div>
+          </div>
+
+          <div class="info-row">
+            <div class="info-column">
+              <label for="passportNo">Is Active Employee</label>
+                <div class="checkbox">
+                  <input type="checkbox" name="isActive"><span>{{empdetail.isActive}}</span>
+                </div>              
+            </div>
+            <div class="info-column">
+              <label for="passportExpiry">Is Admin Privilege</label>
+              <div class="checkbox">
+                <input type="checkbox" name="isAdmin"><span>{{empdetail.isAdmin}}</span>
+              </div> 
+            </div>
+          </div>  
+         
+
+
+
+
+
 <!--           <select>
             <option value="course-type" selected>Course type*</option>
             <option value="short-courses">Short courses</option>
