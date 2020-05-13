@@ -13,17 +13,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
     <script>
-      var datedob = moment("{{empdetail.dob}}").format("YYYY-MM-DD");
+      var datedob = moment("2020-09-22T00:00:00.000Z").format("YYYY-MM-DD");
       // console.log(datedob);
-      var datedoj = moment("{{empdetail.doj}}").format("YYYY-MM-DD");
+      var datedoj = moment("2020-09-22T00:00:00.000Z").format("YYYY-MM-DD");
       // console.log(datedoj);
-      var datePassportExpiry = moment("{{empdetail.passportExpiry}}").format("YYYY-MM-DD");
+      var datePassportExpiry = moment("2020-09-22T00:00:00.000Z").format("YYYY-MM-DD");
       // console.log(datePassportExpiry);
 
-      var managerId = "{{empdetail.managerId}}";
-      if(managerId == ""){
-        managerId = 1;
-      }
+      var managerId = 2;
 
       $( function() {
 
@@ -87,21 +84,30 @@
           //maxDate: "+1M +15D" 
         }).val(datePassportExpiry);
 
-        if({{empdetail.isActive}}){
+
           $("#isActive").prop('checked', true);
           $("#isActiveValue").text('true');
-        }else{
-          $("#isActive").prop('checked', false);
-          $("#isActiveValue").text('false');
-        }
 
-        if({{empdetail.isAdmin}}){
-          $("#isAdmin").prop('checked', true);
-          $("#isAdminValue").text('true');
-        }else{
           $("#isAdmin").prop('checked', false);
           $("#isAdminValue").text('false');
-        }
+
+
+
+        // if({{empdetail.isActive}}){
+        //   $("#isActive").prop('checked', true);
+        //   $("#isActiveValue").text('true');
+        // }else{
+        //   $("#isActive").prop('checked', false);
+        //   $("#isActiveValue").text('false');
+        // }
+
+        // if({{empdetail.isAdmin}}){
+        //   $("#isAdmin").prop('checked', true);
+        //   $("#isAdminValue").text('true');
+        // }else{
+        //   $("#isAdmin").prop('checked', false);
+        //   $("#isAdminValue").text('false');
+        // }
 
         $('#isActive').change(function(){
 
@@ -146,93 +152,94 @@
           $('#selectboxmanager').val(managerId);
             $('#managerId').val($('#selectboxmanager').val());
             $('#managerName').val($('#selectboxmanager option:selected').text());
-        }, 1000);  
+        }, 1000);        
 
         $("#submitBtn").click(function(){
 
-            var empId = document.forms["empdetailForm"]["empId"].value;
-            var title = document.forms["empdetailForm"]["title"].value;
-            var email = document.forms["empdetailForm"]["email"].value;
-            var firstName = document.forms["empdetailForm"]["firstName"].value;
-            var lastName = document.forms["empdetailForm"]["lastName"].value;
-            var phone = document.forms["empdetailForm"]["phone"].value;
-            var mobilePhone = document.forms["empdetailForm"]["mobilePhone"].value;
-            var pan = document.forms["empdetailForm"]["pan"].value;
-            var passportNo = document.forms["empdetailForm"]["passportNo"].value;
 
-            if (empId == "") {
-              alert("Employee ID must be filled out");
-              return false;
-            }
-            if (title == "") {
-              alert("Designation must be filled out");
-              return false;
-            }          
-            if (email == "") {
-              alert("Email must be filled out");
-              return false;
-            }
+          var empId = document.forms["empdetailForm"]["empId"].value;
+          var title = document.forms["empdetailForm"]["title"].value;
+          var email = document.forms["empdetailForm"]["email"].value;
+          var firstName = document.forms["empdetailForm"]["firstName"].value;
+          var lastName = document.forms["empdetailForm"]["lastName"].value;
+          var phone = document.forms["empdetailForm"]["phone"].value;
+          var mobilePhone = document.forms["empdetailForm"]["mobilePhone"].value;
+          var pan = document.forms["empdetailForm"]["pan"].value;
+          var passportNo = document.forms["empdetailForm"]["passportNo"].value;
 
-            const reEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-            if (!reEmail.test(email)){
-              alert("Ooops! We need a valid email address.");
-              return false;
-            }
-            if (email.match(/sarvika.com/g) == null){
-              alert("Ooops! We need a sarvika email address.");
-              return false;
-            }
+          if (empId == "") {
+            alert("Employee ID must be filled out");
+            return false;
+          }
+          if (title == "") {
+            alert("Designation must be filled out");
+            return false;
+          }          
+          if (email == "") {
+            alert("Email must be filled out");
+            return false;
+          }
 
-            if (firstName == "") {
-              alert("First Name must be filled out");
-              return false;
-            }
-            if (lastName == "") {
-              alert("Last Name must be filled out");
-              return false;
-            }
-            if (phone == "") {
-              alert("Phone number must be filled out");
-              return false;
-            }
-            const regPhone = /^[7-9][0-9]{9}$/; // /^[0]?[789]\d{9}$/;
-            if (regPhone.test(phone) === false){
-              alert("Phone numeric and can be 10 digit only");
-              return false;
-            }
+          const reEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+          if (!reEmail.test(email)){
+            alert("Ooops! We need a valid email address.");
+            return false;
+          }
+          if (email.match(/sarvika.com/g) == null){
+            alert("Ooops! We need a sarvika email address.");
+            return false;
+          }
 
-            if (mobilePhone == "") {
-              alert("Emergency phone number must be filled out");
-              return false;
-            }
-            const regMobilePhone = /^[7-9][0-9]{9}$/; // /^[0]?[789]\d{9}$/;
-            if (regMobilePhone.test(mobilePhone) === false){
-              alert("Emergency numeric and can be 10 digit only");
-              return false;
-            }
+          if (firstName == "") {
+            alert("First Name must be filled out");
+            return false;
+          }
+          if (lastName == "") {
+            alert("Last Name must be filled out");
+            return false;
+          }
+          if (phone == "") {
+            alert("Phone number must be filled out");
+            return false;
+          }
+          const regPhone = /^[7-9][0-9]{9}$/; // /^[0]?[789]\d{9}$/;
+          if (regPhone.test(phone) === false){
+            alert("Phone numeric and can be 10 digit only");
+            return false;
+          }
 
-            if (pan == "") {
-              alert("PAN number must be filled out");
-              return false;
-            }
-              const regPan = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
-            if (regPan.test(pan) === false){
-              alert("PAN number alpha-numeric with 10 digit length");
-              return false;
-            }
+          if (mobilePhone == "") {
+            alert("Emergency phone number must be filled out");
+            return false;
+          }
+          const regMobilePhone = /^[7-9][0-9]{9}$/; // /^[0]?[789]\d{9}$/;
+          if (regMobilePhone.test(mobilePhone) === false){
+            alert("Emergency numeric and can be 10 digit only");
+            return false;
+          }
 
-            if (passportNo == "") {
-              alert("Passport number must be filled out");
-              return false;
-            }
-              const regPassportNo = /^[A-Z]{1}[0-9]{7}$/;
-            if (regPassportNo.test(passportNo) === false){
-              alert("Passport number 1 alphabate with 7 digit length");
-              return false;
-            }
+          if (pan == "") {
+            alert("PAN number must be filled out");
+            return false;
+          }
+            const regPan = /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/;
+          if (regPan.test(pan) === false){
+            alert("PAN number alpha-numeric with 10 digit length");
+            return false;
+          }
+
+          if (passportNo == "") {
+            alert("Passport number must be filled out");
+            return false;
+          }
+            const regPassportNo = /^[A-Z]{1}[0-9]{7}$/;
+          if (regPassportNo.test(passportNo) === false){
+            alert("Passport number 1 alphabate with 7 digit length");
+            return false;
+          }
 
             $("#empdetailForm").submit(); // Submit the form
-        });
+        });  
 
           setTimeout(function () {
                document.getElementById("id_logout").click();
@@ -252,7 +259,6 @@
       </Script>      
     <title>Employee Details</title>
     <style>
-
           * {box-sizing: border-box;}
 
           body { 
@@ -324,6 +330,7 @@
               float: none;
             }
           }
+
 
       html, body {
         min-height: 100%;
@@ -511,7 +518,7 @@
 
         .box select option {
           padding: 30px;
-        }      
+        }
     </style>
   </head>
     <body>
@@ -520,6 +527,7 @@
           <img class="img_logo" src="https://firebasestorage.googleapis.com/v0/b/fir-test-be60a.appspot.com/o/logo.png?alt=media&token=cf2c5099-740a-42b9-9be1-dd8f6b9f4e69" alt="STPL" >
           <div class="header-right">
             <a href="/emplisting">Home</a>
+            <a class="active" href="/addempdetail">Add New</a>
             <a href="/logout">Logout</a>
           </div>
         </div>
@@ -536,9 +544,9 @@
         </div>
         <img class="img-round" src="{{empdetail.picture}}" alt="{{empdetail.firstName}}" >
       </div> -->
-      <form action="/empdetailsupdateadmin" method="post" id="empdetailForm">
+      <form action="/empaddbyadmin" method="post" id="empdetailForm">
         <div class="title">
-          <img class="img-round" src="{{empdetail.picture}}" alt="{{empdetail.firstName}}" >
+          <img class="img-round" src="https://firebasestorage.googleapis.com/v0/b/fir-test-be60a.appspot.com/o/no_image.png?alt=media&token=2931a604-66ae-4354-b387-8f5bffc0480b" alt="Emp Image" >
           <i class="fas fa-pencil-alt"></i> 
           <h2>Employee Details</h2>
         </div>
@@ -546,7 +554,7 @@
         <div class="info-row" style="visibility: hidden;">
           <div class="info-column">
             <label for="id">ID</label>
-            <input type="text" name="id" placeholder="id" value="{{empdetail.id}}" hidden="true">
+            <input type="text" name="id" placeholder="id" value="{{newEmpId}}" hidden="true">
           </div>
         </div>
 
@@ -554,83 +562,83 @@
           <div class="info-row">
             <div class="info-column">
               <label for="empId">Employee ID</label>
-              <input type="text" name="empId" placeholder="Employee ID" value="{{empdetail.empId}}">
+              <input type="text" name="empId" placeholder="Employee ID" value="IT-">
             </div>
             <div class="info-column">
               <label for="title">Designation</label>
-              <input type="text" name="title" placeholder="Designation" value="{{empdetail.title}}">
+              <input type="text" name="title" placeholder="Designation" value="">
             </div>
           </div>
 
           <div class="info-row">
             <div class="info-column">
               <label for="Email">Email</label>
-              <input type="text" name="email" placeholder="Email" value="{{empdetail.email}}">
+              <input type="text" name="email" placeholder="Email" value="@sarvika.com">
             </div>
           </div>
 
           <div class="info-row">
             <div class="info-column">
               <label for="firstName">First Name</label>
-              <input class="fname" type="text" name="firstName" placeholder="First Name" value="{{empdetail.firstName}}"> 
+              <input class="fname" type="text" name="firstName" placeholder="First Name" value="" required="required"> 
             </div>
             <div class="info-column">
               <label for="lastName">Last Name</label>
-              <input class="lname" type="text" name="lastName" placeholder="Last Name" value="{{empdetail.lastName}}">
+              <input class="lname" type="text" name="lastName" placeholder="Last Name" value="" required="required">
             </div>
           </div>
 
           <div class="info-row">
             <div class="info-column">
               <label for="phone">Phone number</label>
-              <input type="text" name="phone" placeholder="Phone number" value="{{empdetail.phone}}">
+              <input type="text" name="phone" placeholder="Phone number" value="" required="required">
             </div>
             <div class="info-column">
               <label for="mobilePhone">E-Phone number</label>
-              <input type="text" name="mobilePhone" placeholder="E-Phone number" value="{{empdetail.mobilePhone}}">
+              <input type="text" name="mobilePhone" placeholder="E-Phone number" value="" required="required">
             </div>
           </div>
 
           <div class="info-row">
             <div class="info-column">
               <label for="bloodGrp">Blood Group</label>
-              <input type="text" name="bloodGrp" placeholder="Blood Group" value="{{empdetail.bloodGrp}}">
+              <input type="text" name="bloodGrp" placeholder="Blood Group" value="B+">
             </div>
             <div class="info-column">
               <label for="pan">PAN Number</label>
-              <input type="text" name="pan" placeholder="PAN Number" value="{{empdetail.pan}}">
+              <input type="text" name="pan" placeholder="PAN Number" value="ATEPD8622B">
             </div>
           </div>
 
           <div class="info-row">
             <div class="info-column">
               <label for="passportNo">Passport Number</label>
-              <input type="text" name="passportNo" placeholder="Passport Number" value="{{empdetail.passportNo}}">
+              <input type="text" name="passportNo" placeholder="Passport Number" value="F7802033">
             </div>
             <div class="info-column">
               <label for="passportExpiry">Passport Expiry Date (YYYY/MM/DD)</label>
-              <input type="text" id="passportExpiry" name="passportExpiry" placeholder="Passport Expiry Date" value="{{empdetail.passportExpiry}}" hidden="true">
-              <input type="text" id="datepickerpassportExpiry" name="dppassportExpiry" placeholder="Passport Expiry Date" value="{{empdetail.passportExpiry}}">
+              <input type="text" id="passportExpiry" name="passportExpiry" placeholder="Passport Expiry Date" value="2020-09-22T00:00:00.000Z" hidden="true">
+              <input type="text" id="datepickerpassportExpiry" name="dppassportExpiry" placeholder="Passport Expiry Date" value="2020-09-22T00:00:00.000Z">
             </div>
           </div>
 
           <div class="info-row">
             <div class="info-column">
               <label for="dob">Date of Birth (YYYY/MM/DD)</label>
-              <input type="text" id="dob" name="dob" placeholder="Date of Birth" value="{{empdetail.dob}}" hidden="true">
+              <input type="text" id="dob" name="dob" placeholder="Date of Birth" value="2020-09-22T00:00:00.000Z" hidden="true">
               <input type="text" id="datepickerdob" name="dpdob" placeholder="Date of Birth">
             </div>
             <div class="info-column">
               <label for="doj">Date of Joining (YYYY/MM/DD)</label>
-              <input type="text" id="doj" name="doj" placeholder="Date of Joining" value="{{empdetail.doj}}" hidden="true">
-              <input type="text" id="datepickerdoj" name="dpdoj" placeholder="Date of Joining" value="{{empdetail.doj}}">
+              <input type="text" id="doj" name="doj" placeholder="Date of Joining" value="2020-09-22T00:00:00.000Z" hidden="true">
+              <input type="text" id="datepickerdoj" name="dpdoj" placeholder="Date of Joining" value="2020-09-22T00:00:00.000Z">
             </div>
           </div>
 
           <div class="info-row">
             <div class="info-column">
               <label for="picture">Profile Image URL</label>
-              <input type="text" name="picture" placeholder="Profile Image Url" value="{{empdetail.picture}}">
+              <input type="text" name="picture" placeholder="Profile Image Url" value="https://firebasestorage.googleapis.com/v0/b/fir-test-be60a.appspot.com/o/no_image.png?alt=media&token=2931a604-66ae-4354-b387-8f5bffc0480b">
             </div>
           </div>  
          
@@ -639,8 +647,8 @@
               <label for="isActive">Is Active Employee</label>
                 <div class="checkbox">
                   <div style="display: flex; flex-direction: row; padding: 20px;">
-                    <input type="checkbox" id="isActive" name="isActive" value="{{empdetail.isActive}}">
-                    <div id="isActiveValue">{{empdetail.isActive}}</div>
+                    <input type="checkbox" id="isActive" name="isActive" value="true">
+                    <div id="isActiveValue">true</div>
                   </div>
                 </div>              
             </div>
@@ -648,8 +656,8 @@
               <label for="isAdmin">Is Admin Privilege</label>
               <div class="checkbox">
                 <div style="display: flex; flex-direction: row; padding: 20px;">
-                  <input type="checkbox" id="isAdmin" name="isAdmin" value="{{empdetail.isAdmin}}">
-                  <div id="isAdminValue">{{empdetail.isAdmin}}</div>
+                  <input type="checkbox" id="isAdmin" name="isAdmin" value="false">
+                  <div id="isAdminValue">false</div>
                 </div>
               </div> 
             </div>
@@ -658,8 +666,8 @@
           <div class="info-row">
             <div class="info-column">
               <label for="Manager">Reporting Manager</label>
-              <input type="text" id="managerId" name="managerId" placeholder="managerId" value="{{empdetail.managerId}}" readonly hidden="true">
-              <input type="text" id="managerName" name="managerName" placeholder="managerName" value="{{empdetail.managerName}}" readonly hidden="true">
+              <input type="text" id="managerId" name="managerId" placeholder="managerId" value="2" readonly hidden="true">
+              <input type="text" id="managerName" name="managerName" placeholder="managerName" value="Jyotsana Rankawat" readonly hidden="true">
                 <div class="box">
                   <select id="selectboxmanager">
                     <option value="">-- Select Manager --</option>
@@ -667,6 +675,8 @@
                 </div>
             </div>
           </div>
+
+
 
 
 

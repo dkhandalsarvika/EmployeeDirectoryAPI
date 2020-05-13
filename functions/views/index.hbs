@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link id="favicon" rel="icon" href="https://www.sarvika.com/wp-content/uploads/2019/02/favicon.png" type="image/x-icon">
+    <link id="favicon" rel="icon" href="https://firebasestorage.googleapis.com/v0/b/fir-test-be60a.appspot.com/o/favicon.png?alt=media&token=e966aaa4-d064-4800-8531-62f2bc8cd3a3" type="image/x-icon">
     <title>SED Login</title>
       <style>
 /*        .login-form {
@@ -105,6 +105,13 @@
          setTimeout(function () {
             document.getElementById('msg').style.display='none';
           }, 5000);
+
+         window.localStorage.setItem("isActiveFilter", "all"); 
+      </Script>
+      <Script>
+          function preventBack(){window.history.forward();}
+          setTimeout("preventBack()", 0);
+          window.onunload=function(){null};
       </Script>
   </head>
   <body>

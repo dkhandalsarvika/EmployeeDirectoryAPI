@@ -3,9 +3,161 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link id="favicon" rel="icon" href="https://www.sarvika.com/wp-content/uploads/2019/02/favicon.png" type="image/x-icon">
+    <!-- <meta http-equiv="refresh" content="960" /> -->
+    <link id="favicon" rel="icon" href="https://firebasestorage.googleapis.com/v0/b/fir-test-be60a.appspot.com/o/favicon.png?alt=media&token=e966aaa4-d064-4800-8531-62f2bc8cd3a3" type="image/x-icon">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment-with-locales.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script type="text/javascript" src="js/lazysizes.min.js" async></script>
+    <script>
+
+       $( function() {
+
+          $('#selectboxisactive').change(function() {
+
+            if($(this).val() == "true"){
+              window.location.href = '/emplisting?isActive=true';
+              window.localStorage.setItem("isActiveFilter", "true"); 
+            }else if($(this).val() == "false"){
+              window.location.href = '/emplisting?isActive=false'; 
+              window.localStorage.setItem("isActiveFilter", "false"); 
+            }else{
+              window.location.href = '/emplisting'; 
+              window.localStorage.setItem("isActiveFilter", "all"); 
+            }
+          });
+
+          var isActiveFilter = window.localStorage.getItem("isActiveFilter");
+
+          if(isActiveFilter == null){
+            window.localStorage.setItem("isActiveFilter", "all"); 
+            $("#selectboxisactive").val("all");
+          }else{
+            window.localStorage.setItem("isActiveFilter", isActiveFilter); 
+            $("#selectboxisactive").val(isActiveFilter);
+          }
+
+          setTimeout(function () {
+               document.getElementById("id_logout").click();
+          }, 60000 * 30);  
+          
+
+       });
+
+       function getHumanRedableDate(dateStr,id){
+          var datedob = moment(dateStr).format("YYYY-MM-DD");
+          $("#"+id+"").html(datedob);
+       }
+
+    </script>
     <title>Sarvika Employee Directory List</title>
       <style>
+          * {box-sizing: border-box;}
+          
+          form.example input[type=text] {
+            padding: 10px;
+            font-size: 17px;
+            border: 1px solid grey;
+            float: left;
+            width: 85%;
+            background: #f1f1f1;
+          }
+
+          form.example button {
+            float: left;
+            width: 15%;
+            padding: 10px;
+            background: #2196F3;
+            color: white;
+            font-size: 17px;
+            border: 1px solid grey;
+            border-left: none;
+            cursor: pointer;
+          }
+
+          form.example button:hover {
+            background: #0b7dda;
+          }
+
+          form.example::after {
+            content: "";
+            clear: both;
+            display: table;
+          }
+
+          body { 
+            margin: 0;
+            /*font-family: Arial, Helvetica, sans-serif;*/
+          }
+
+          .header {
+            overflow: hidden;
+            background-color: #11411B;
+            /*padding: 20px 10px;*/
+          }
+
+          .header a {
+            float: left;
+            color: black;
+            text-align: center;
+            padding: 12px;
+            text-decoration: none;
+            font-size: 18px; 
+            line-height: 25px;
+            border-radius: 4px;
+          }
+
+          .header a.logo {
+            font-size: 25px;
+            font-weight: bold;
+            color: white;
+          }
+
+          .header a {
+            color: white;
+            margin: 10px;
+          }
+
+          .header a:hover {
+            background-color: #55BC79;
+            color: white;
+          }
+
+          .img_logo{
+              border: 1px solid #ddd;
+              border-radius: 4px;
+              padding: 5px;
+              width: 150px;
+              height: 65px;
+              margin: 10px;
+
+          }
+
+          .header a.active {
+            background-color: #55BC79;
+            color: white;
+          }
+
+          .header-right {
+            float: right;
+          }
+
+          @media screen and (max-width: 500px) {
+            .header a {
+              float: none;
+              display: block;
+              text-align: left;
+              color: white;
+            }
+            
+            .header-right {
+              float: none;
+            }
+          }
+
         h1{
           text-align: center;
         }
@@ -16,20 +168,109 @@
             border: 1px solid black;
             padding: 3px;
          }
-        img{
+        .img_avator{
           width: 60px;
           height: 60px;
           border-radius: 50%;
         }
+
+       .box {
+          /*position: absolute;*/
+/*          top: 50%;
+          left: 50%;*/
+          /*transform: translate(-50%, -50%);*/
+        }
+
+        .box select {
+          background-color: #0563af;
+          color: white;
+          padding: 12px;
+          width: 100px;
+          border: none;
+          font-size: 20px;
+          box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
+          -webkit-appearance: button;
+          appearance: button;
+          outline: none;
+        }
+
+        .box::before {
+          /*content: "\f13a";*/
+          font-family: FontAwesome;
+          /*position: absolute;*/
+          top: 0;
+          right: 0;
+          width: 20%;
+          height: 100%;
+          text-align: center;
+          font-size: 28px;
+          line-height: 45px;
+          color: rgba(255, 255, 255, 0.5);
+          background-color: rgba(255, 255, 255, 0.1);
+          pointer-events: none;
+        }
+
+        .box:hover::before {
+          color: rgba(255, 255, 255, 0.6);
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .box select option {
+          padding: 30px;
+        }
+
       </style>
   </head>
   <body>
 
-    <table align="center">
+        <div class="header">
+          <img class="img_logo" src="https://firebasestorage.googleapis.com/v0/b/fir-test-be60a.appspot.com/o/logo.png?alt=media&token=cf2c5099-740a-42b9-9be1-dd8f6b9f4e69" alt="STPL" >
+          <div class="header-right">
+            <a class="active" href="/emplisting">Home</a>
+            <a href="/addempdetail">Add New</a>
+            <a id="id_logout" href="/logout">Logout</a>
+          </div>
+        </div>
+        
+
+
+        <table align="center">
         <tr>
-          <h1>Sarvika Employee Directory</h1>
-          <h2><a href="/logout">Logout</a></h2>
-        </tr>
+          <td>
+            <form class="example" action="/sarvikaemployeesadmin" style="margin:auto;max-width:400px">
+              <input type="text" placeholder="Search by name or email" name="searchtext">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+          </td>
+          <td>
+            <b>Sarvika Employee Directory</b>
+          </td>          
+          <td>
+            <label for="isActiveFilter">Filter by isActive: </label>
+          </td>
+          <td>
+            <div class="box">
+              <select id="selectboxisactive">
+                <option value="all">All</option>
+                <option value="true">true</option>
+                <option value="false">false</option>
+              </select>
+            </div>
+          </td>
+          <td style="background-color: #FFFF00;">
+            <b>Total Records: ({{employeeStatus.totalRecords}})</b>
+          </td>
+          <td style="background-color: #55BC79;">
+            <b>Active : ({{employeeStatus.activeEmployee}})</b>
+          </td>
+          <td style="background-color: #ff0000;">
+            <b>InActive : ({{employeeStatus.inactiveEmployee}})</b>
+          </td>                    
+        </tr> 
+      </table>
+
+    <table align="center">
+    
         <tr style="background-color: #A3A3A3;">
             <th>ID</th>
             <th>Image</th>
@@ -37,21 +278,41 @@
             <th>Name</th>
             <th>Designation</th>
             <th>E-Mail</th>
+            <th>ABO</th>
             <th>Mobile</th>
             <th>E-Mobile</th>
+            <th>Reporting Manager</th>
+            <th>DOB</th>
+            <th>DOJ</th>
             <th>Edit</th>
+            <!-- <th>Delete</th> -->
          </tr>
         {{#each employees}}
-          <tr>
+
+         {{#if isActive}}
+            <tr style="background-color: #55BC79;">
+          {{else}}
+            <tr style="background-color: #ff0000;">
+          {{/if}}
+          
             <td>{{id}}</td>
-            <td><img src="{{picture}}" alt="{{firstName}}" ></td>
+            <td>
+              <!-- <img class="img_avator" src="{{picture}}" alt="{{firstName}}" > -->
+              <img style="width: 60px; height: 60px; border-radius: 50%;" data-src="{{picture}}" class="lazyload" alt="{{firstName}}">
+            </td>
             <td>{{empId}}</td>
             <td>{{firstName}} {{lastName}}</td>
             <td>{{title}}</td>
             <td>{{email}}</td>
+            <td>{{bloodGrp}}</td>
             <td>{{phone}}</td>
             <td>{{mobilePhone}}</td>
+            <td>{{managerName}}</td>
+            <td id="tddob{{id}}"><SCRIPT type="text/javascript">getHumanRedableDate('{{dob}}','tddob{{id}}');</SCRIPT> </td>
+            <td id="tddoj{{id}}"><SCRIPT type="text/javascript">getHumanRedableDate('{{doj}}','tddoj{{id}}');</SCRIPT> </td>
             <td><a href="/empdetails/{{id}}">Edit</a></td>
+<!--             <td style="background-color: #ff0000;"><a href="/deleteemployee/{{id}}" onclick="return confirm('Are you want to delete record for {{firstName}} ?');">Delete</a></td> -->
+            
           </tr>
         {{/each}}
     </table>
